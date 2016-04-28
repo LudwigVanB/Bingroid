@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sca.bingroid.GameBoardActivity"
+    >
+
+    <sca.bingroid.BoardView
+        android:id="@+id/board_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </sca.bingroid.BoardView>
+
+    <!--<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="toto 123"
+        />
+</GridLayout>-->
+</FrameLayout>
