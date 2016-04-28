@@ -30,8 +30,8 @@ public class GameEngine {
     private static final String LOG_TAG = GameEngine.class.getSimpleName();
 
     public static class PlacementResult {
-        boolean mIsValid;
-        int mPreviousPos;
+        final boolean mIsValid;
+        final int mPreviousPos;
 
         private PlacementResult(boolean isValid, int previousPos) {
             mIsValid = isValid;
@@ -55,7 +55,7 @@ public class GameEngine {
 
     private GameEngine() { }
 
-    public void reset() {
+    private void reset() {
         mBoardState = new BoardState();
         mTilesBag = new TilesBag();
         mCurrentTile = null;
@@ -176,7 +176,7 @@ public class GameEngine {
             endPos = endPosIn;
         }
 
-        public int startPos; // inclusive
+        final public int startPos; // inclusive
         public int endPos; //inclusive
 
         public int getScore() {
@@ -211,8 +211,7 @@ public class GameEngine {
 
     public int getScore() {
         Tile firstTile = mBoardState.getTile(0);
-        int score = getPartialScore( new Series(0,0), firstTile.isWildcard() ? null : firstTile );
-        return score;
+        return getPartialScore( new Series(0,0), firstTile.isWildcard() ? null : firstTile );
     }
 
     public Tile[] getTilesHistory() {

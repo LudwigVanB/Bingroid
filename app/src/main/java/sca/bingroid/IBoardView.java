@@ -2,7 +2,7 @@ package sca.bingroid;
 
 import sca.bingroid.model.Tile;
 
-public interface IBoardView {
+interface IBoardView {
 
     interface Callbacks {
         void onSquareClicked(int squareId );

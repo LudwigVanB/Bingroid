@@ -19,14 +19,14 @@ public class BoardView extends GridLayout implements IBoardView {
 
     private IBoardView.Callbacks mCallbacks;
 
-    final static int NB_SQUARES = GameEngine.NB_DRAWN_TILES;
-    Button mTbSquares[];
-    View mTitleZone;
-    Button mDrawBtn;
-    View mScoreZone;
-    TextView mCurrentTileText;
-    TextView mTilesHistoryText;
-    TextView mScoreText;
+    private final static int NB_SQUARES = GameEngine.NB_DRAWN_TILES;
+    private Button mTbSquares[];
+    private View mTitleZone;
+    private Button mDrawBtn;
+    private View mScoreZone;
+    private TextView mCurrentTileText;
+    private TextView mTilesHistoryText;
+    private TextView mScoreText;
 
     public BoardView(Context context) {
         super(context);

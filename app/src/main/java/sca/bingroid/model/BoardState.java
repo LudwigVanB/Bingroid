@@ -12,7 +12,7 @@ import java.util.List;
 
 class BoardState implements Serializable {
 
-    private List<Tile> mtbPlacedTiles = Arrays.asList( new Tile[GameEngine.NB_DRAWN_TILES] );
+    private final List<Tile> mtbPlacedTiles = Arrays.asList( new Tile[GameEngine.NB_DRAWN_TILES] );
     private int mNbPlacedTiles = 0;
 
     void placeTile( int pos,@Nullable Tile tile ) {

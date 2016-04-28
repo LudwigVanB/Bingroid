@@ -9,6 +9,6 @@
         </ripple>
     </item>
 
-    <!-- Default, "just hangin' out" state. -->
+    <!-- Default, "just hanging out" state. -->
     <item android:drawable="@drawable/space_box" />
 </selector>

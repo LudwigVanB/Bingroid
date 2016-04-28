@@ -16,8 +16,6 @@ import sca.bingroid.model.Tile;
  */
 public class GameBoardActivity extends AppCompatActivity {
 
-    private final String LOG_TAG = GameBoardActivity.class.getSimpleName();
-
     private IBoardView mBoardView;
     private GameEngine mGameEngine;
 
@@ -52,7 +50,7 @@ public class GameBoardActivity extends AppCompatActivity {
         String gameState = mGameEngine.toString();
         editor.putString( "gameState", gameState );
 
-        editor.commit();
+        editor.apply();
     }
 
     private class BoardViewCallbacks implements BoardView.Callbacks {

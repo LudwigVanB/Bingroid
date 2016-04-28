@@ -5,9 +5,7 @@ import java.util.Collections;
 
 class TilesBag {
 
-    private static final String LOG_TAG = TilesBag.class.getSimpleName();
-
-    private ArrayList<Tile> mtbTiles = new ArrayList<>(40);
+    private final ArrayList<Tile> mtbTiles = new ArrayList<>(40);
 
     TilesBag() {
         putAllTiles();
