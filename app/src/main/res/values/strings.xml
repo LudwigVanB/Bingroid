@@ -4,6 +4,7 @@
     <string name="draw">Draw</string>
     <string name="score">Score</string>
     <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
     <string name="confirm_reset">Are you sure you want to reset current game?</string>
     <string name="placeholder" translatable="false">-</string>
 

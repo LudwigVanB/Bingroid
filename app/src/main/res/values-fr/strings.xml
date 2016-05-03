@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel">Annuler</string>
+    <string name="confirm_reset">Etes-vous sûr de vouloir réinitialiser la partie en cours ?</string>
+    <string name="draw">Piocher</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="score">Score</string>
+</resources>

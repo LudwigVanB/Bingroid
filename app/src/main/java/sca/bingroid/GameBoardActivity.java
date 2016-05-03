@@ -89,7 +89,7 @@ public class GameBoardActivity extends AppCompatActivity {
                             mBoardView.onReset();
                         }
                     })
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
         }
     }
