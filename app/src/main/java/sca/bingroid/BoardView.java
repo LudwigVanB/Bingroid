@@ -88,14 +88,14 @@ public class BoardView extends GridLayout implements IBoardView {
         });
     }
 
-    private void positionSquare(Button btn, int iRow, int iCol, int spaceWidth, int spaceHeight, float textSizeDp ) {
+    private void positionSquare(Button btn, int iRow, int iCol, int spaceWidth, int spaceHeight, float textSizePx ) {
         GridLayout.LayoutParams param = new GridLayout.LayoutParams();
         param.width = spaceWidth;
         param.height = spaceHeight;
         param.rowSpec = GridLayout.spec(iRow,GridLayout.FILL);
         param.columnSpec = GridLayout.spec(iCol,GridLayout.FILL);
         btn.setLayoutParams( param );
-        btn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSizeDp );
+        btn.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizePx );
         addView(btn);
     }
 
@@ -122,21 +122,21 @@ public class BoardView extends GridLayout implements IBoardView {
         setColumnCount(colCount);
         int spaceWidth = width/colCount;
         int spaceHeight = height/rowCount;
-        float textSizeDp = Math.max(spaceHeight, spaceWidth/2 ) * 0.35f;
+        float textSizePx = Math.max(spaceHeight, spaceWidth/2 ) * 0.80f;
 
         int upperRowColCount = (int)Math.ceil((colCount+1)/2.0f);
         int iBtn = 0;
         for (int iCol=0; iCol<upperRowColCount; iCol++) {
             Button btn = mTbSquares[iBtn++];
-            positionSquare(btn, 0, iCol, spaceWidth, spaceHeight, textSizeDp);
+            positionSquare(btn, 0, iCol, spaceWidth, spaceHeight, textSizePx);
         }
         for (int iRow=1; iRow<rowCount; iRow++) {
             Button btn = mTbSquares[iBtn++];
-            positionSquare(btn, iRow, upperRowColCount-1, spaceWidth, spaceHeight, textSizeDp);
+            positionSquare(btn, iRow, upperRowColCount-1, spaceWidth, spaceHeight, textSizePx);
         }
         for (int iCol=upperRowColCount; iCol<colCount; iCol++) {
             Button btn = mTbSquares[iBtn++];
-            positionSquare(btn, rowCount-1, iCol, spaceWidth, spaceHeight, textSizeDp);
+            positionSquare(btn, rowCount-1, iCol, spaceWidth, spaceHeight, textSizePx);
         }
 
         int rowSpan = rowCount-1;
@@ -146,7 +146,7 @@ public class BoardView extends GridLayout implements IBoardView {
         positionZone( mTitleZone, 0, upperRowColCount, rowSpan, colSpan );
 
         // Score zone
-        mCurrentTileText.setTextSize( TypedValue.COMPLEX_UNIT_DIP, textSizeDp*1.20f );
+        mCurrentTileText.setTextSize( TypedValue.COMPLEX_UNIT_DIP, textSizePx*1.20f );
         colSpan = upperRowColCount - 1;
         positionZone( mScoreZone, 1, 0, rowSpan, colSpan );
 

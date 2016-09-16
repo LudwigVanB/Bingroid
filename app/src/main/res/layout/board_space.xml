@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="35dp"
-    android:layout_height="25dp"
-    android:textColor="@color/spaceTextColor"
-    android:background="@drawable/space_selector"
-    android:textSize="30sp"
-    android:text=""
-    android:padding="0dp" />
+        android:layout_width="35dp"
+        android:layout_height="25dp"
+        android:textColor="@color/spaceTextColor"
+        android:background="@drawable/space_selector"
+        android:textAlignment="center"
+        android:includeFontPadding="false"
+        android:padding="0dp" />
