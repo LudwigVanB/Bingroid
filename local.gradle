@@ -1,8 +1,12 @@
-assembleRelease.doLast {
-    copy {
-        from buildDir.getPath() + "/../app-release.apk"
-        into '\\\\192.168.1.101\\Téléchargements'
-        rename "app-release.apk", "bingroid.apk"
+tasks.whenTaskAdded { task ->
+    if (task.name == 'assembleRelease') {
+        task.doLast {
+            copy {
+                from buildDir.getPath() + "/../app-release.apk"
+                into '\\\\192.168.1.101\\Téléchargements'
+                rename "app-release.apk", "bingroid.apk"
+            }
+            println "Copied on NAS"
+        }
     }
-    println "Copied on NAS"
 }
