@@ -24,7 +24,7 @@ public class GameEngineTest {
         BoardState state = createState(tilesValues);
         GameEngine gameEngine = GameEngine.ofString(null);
         gameEngine.setState( state );
-        assertEquals( expectedScore, gameEngine.getScore());
+        assertEquals( expectedScore, gameEngine.getRoundScore());
     }
 
     @Test

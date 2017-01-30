@@ -3,9 +3,25 @@
 
     <string name="draw">Draw</string>
     <string name="score">Score</string>
+    <string name="total_score">Total</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
     <string name="confirm_reset">Are you sure you want to reset current game?</string>
     <string name="placeholder" translatable="false">-</string>
+    <string name="new_round">New Round</string>
+    <string name="new_game">New Game</string>
+    <string name="rules">Rules</string>
+    <string name="confirm_new_round">Are you sure you want to reset current round?</string>
+    <string name="title_activity_rules">Rules</string>
+    <string name="rules_content">
+        "20 tiles will be drawn from a pool of 40.\n\n"
 
+        "Tiles are numbered from 1 to 30. Tiles numbered 11 to 19 are present twice and there"
+        "is an additional wildcard.\n"
+        "After each draw, you have to place the tile on the line. Once placed, it cannot be moved.\n"
+        "The goal is to make the longest possible series of ascending or equal numbers.\n\n"
+
+        "Once the 20th tile has been placed, each series will be awarded points. The sum will be "
+        "your total score.\n"
+    </string>
 </resources>

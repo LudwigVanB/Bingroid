@@ -21,7 +21,7 @@ public class GameEngine {
             null
     };
 
-    private static final int[] TB_SCORES = new int[] {
+    public static final int[] TB_SCORES = new int[] {
             0, 1 ,3, 5, 7,
             9, 11, 15, 20, 25,
             30, 35, 40, 50, 60,
@@ -52,17 +52,22 @@ public class GameEngine {
     private Tile mCurrentTile;
     private int mCurrentTilePlacedPos;
     private ArrayList<Tile> mListDrawnTiles;
+    private ArrayList<Integer> mListRoundScores;
 
     private GameEngine() { }
 
     private void reset() {
+        newRound();
+        mListRoundScores = new ArrayList<>(  );
+    }
+
+    public void newRound() {
         mBoardState = new BoardState();
         mTilesBag = new TilesBag();
         mCurrentTile = null;
         mCurrentTilePlacedPos = -1;
         mListDrawnTiles = new ArrayList<>(NB_DRAWN_TILES);
     }
-
 
     void setState( BoardState state ) {
         mBoardState = state;
@@ -72,6 +77,7 @@ public class GameEngine {
     private static final String JSON_CURRENT_TILE_PLACED = "currentTilePlacedPos";
     private static final String JSON_BOARD_STATE = "boardState";
     private static final String JSON_TILES_HISTORY = "tilesHistory";
+    private static final String JSON_ROUND_SCORES_HISTORY = "roundScoresHistory";
 
     @Override
     public String toString() {
@@ -84,11 +90,17 @@ public class GameEngine {
                     json.put( JSON_CURRENT_TILE_PLACED, mCurrentTilePlacedPos );
                 }
 
-                JSONArray arrayHistory = new JSONArray();
+                JSONArray arrayTileHistory = new JSONArray();
                 for (Tile tile : mListDrawnTiles) {
-                    arrayHistory.put( tile.toString() );
+                    arrayTileHistory.put( tile.toString() );
                 }
-                json.put( JSON_TILES_HISTORY, arrayHistory );
+                json.put( JSON_TILES_HISTORY, arrayTileHistory );
+
+                JSONArray arrayRoundScoresHistory = new JSONArray();
+                for (int roundScore : mListRoundScores) {
+                    arrayRoundScoresHistory.put( roundScore );
+                }
+                json.put( JSON_ROUND_SCORES_HISTORY, arrayRoundScoresHistory );
 
                 json.put( JSON_BOARD_STATE, mBoardState.toJSON() );
                 return json.toString();
@@ -113,11 +125,19 @@ public class GameEngine {
                 }
 
                 gameEngine.mListDrawnTiles = new ArrayList<>();
-                JSONArray array = (JSONArray) json.get(JSON_TILES_HISTORY);
-                for (int i=0; i<array.length(); i++) {
-                    String value = array.getString(i);
+                JSONArray arrayTiles = (JSONArray) json.get(JSON_TILES_HISTORY);
+                for (int i=0; i<arrayTiles.length(); i++) {
+                    String value = arrayTiles.getString(i);
                     Tile tile = Tile.ofString(value);
                     gameEngine.mListDrawnTiles.add(tile);
+                }
+
+                gameEngine.mListRoundScores = new ArrayList<>();
+                JSONArray arrayRoundScores = (JSONArray) json.get(JSON_ROUND_SCORES_HISTORY);
+                if (arrayRoundScores != null) {
+                    for ( int i = 0; i < arrayRoundScores.length(); i++ ) {
+                        gameEngine.mListRoundScores.add( arrayRoundScores.getInt( i ) );
+                    }
                 }
 
                 JSONObject jsonBoardState = (JSONObject) json.get(JSON_BOARD_STATE);
@@ -156,6 +176,9 @@ public class GameEngine {
             int oldPos = mCurrentTilePlacedPos;
             mBoardState.placeTile(pos, mCurrentTile);
             mCurrentTilePlacedPos = pos;
+            if (isGameOver()) {
+                mListRoundScores.add( getRoundScore() );
+            }
             return new PlacementResult(true, oldPos);
         }
     }
@@ -209,9 +232,21 @@ public class GameEngine {
         return score + currentSeries.getScore();
     }
 
-    public int getScore() {
+    public int getRoundScore() {
         Tile firstTile = mBoardState.getTile(0);
         return getPartialScore( new Series(0,0), firstTile.isWildcard() ? null : firstTile );
+    }
+
+    public int getGameScore() {
+        int total = 0;
+        for (int i=0; i<mListRoundScores.size(); i++) {
+            total += mListRoundScores.get(i);
+        }
+        return total;
+    }
+
+    public Integer[] getRoundScoreHistory() {
+        return mListRoundScores.toArray( new Integer[mListRoundScores.size()]);
     }
 
     public Tile[] getTilesHistory() {

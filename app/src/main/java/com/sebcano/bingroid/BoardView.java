@@ -5,9 +5,11 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.sebcano.bingroid.model.GameEngine;
@@ -26,7 +28,8 @@ public class BoardView extends GridLayout implements IBoardView {
     private View mScoreZone;
     private TextView mCurrentTileText;
     private TextView mTilesHistoryText;
-    private TextView mScoreText;
+    private TextView mRoundScoreText;
+    private TextView mTotalScoreText;
 
     public BoardView(Context context) {
         super(context);
@@ -78,12 +81,33 @@ public class BoardView extends GridLayout implements IBoardView {
         mScoreZone = inflater.inflate( R.layout.score_zone, null );
         mCurrentTileText = (TextView) mScoreZone.findViewById(R.id.currentTileText);
         mTilesHistoryText = (TextView) mScoreZone.findViewById(R.id.tilesHistoryText);
-        mScoreText = (TextView) mScoreZone.findViewById(R.id.scoreText);
-        Button resetBtn = (Button) mScoreZone.findViewById( R.id.resetButton );
-        resetBtn.setOnClickListener(new OnClickListener() {
+        mRoundScoreText = (TextView) mScoreZone.findViewById(R.id.scoreText);
+        mTotalScoreText = (TextView) mScoreZone.findViewById(R.id.totalScoreText);
+        Button menuBtn = (Button) mScoreZone.findViewById( R.id.menuButton );
+        menuBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallbacks.onResetClicked();
+                PopupMenu popup = new PopupMenu(getContext(), v);
+                popup.inflate(R.menu.menu);
+                popup.show();
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.new_round:
+                                mCallbacks.onNewRoundClicked();
+                                return true;
+                            case R.id.new_game:
+                                mCallbacks.onResetClicked();
+                                return true;
+                            case R.id.rules:
+                                mCallbacks.onRulesClicked();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
             }
         });
     }
@@ -176,15 +200,31 @@ public class BoardView extends GridLayout implements IBoardView {
     }
 
     @Override
-    public void displayScore(int score) {
-        mScoreText.setText( Integer.toString(score) );
-        mDrawBtn.setEnabled(false);
+    public void displayScore(Integer roundScore, Integer[] tbRoundScores, int gameScore) {
+        if (roundScore != null) {
+            mRoundScoreText.setText( Integer.toString(roundScore) );
+            mDrawBtn.setEnabled(false);
+        }
+
+        if (tbRoundScores.length == 1) {
+            mTotalScoreText.setText( Integer.toString(gameScore) );
+        } else if (tbRoundScores.length > 1) {
+            StringBuilder sbTotalScore = new StringBuilder();
+            sbTotalScore.append( tbRoundScores[0] );
+            for (int i=1; i<tbRoundScores.length; i++) {
+                sbTotalScore.append( " + " );
+                sbTotalScore.append( tbRoundScores[i] );
+            }
+            sbTotalScore.append( " = " );
+            sbTotalScore.append( gameScore );
+            mTotalScoreText.setText( sbTotalScore );
+        }
     }
 
     @Override
-    public void onReset() {
+    public void onNewRound() {
         mDrawBtn.setEnabled(true);
-        mScoreText.setText("-");
+        mRoundScoreText.setText("-");
         mTilesHistoryText.setText("");
         mCurrentTileText.setText("");
         for (Button btn : mTbSquares) {
@@ -194,7 +234,13 @@ public class BoardView extends GridLayout implements IBoardView {
     }
 
     @Override
-    public void restoreState(Tile currentTile, Tile[] tbBoard, Tile[] tbHistory, boolean canDraw, Integer score) {
+    public void onReset() {
+        onNewRound();
+        mTotalScoreText.setText( "-" );
+    }
+
+    @Override
+    public void restoreState(Tile currentTile, Tile[] tbBoard, Tile[] tbHistory, boolean canDraw, Integer roundScore, Integer[] tbRoundScores, Integer totalScore) {
         onReset();
         for (int pos=0; pos<tbBoard.length; pos++) {
             onTilePlaced( pos, tbBoard[pos] );
@@ -202,7 +248,7 @@ public class BoardView extends GridLayout implements IBoardView {
         if (currentTile != null) mCurrentTileText.setText( currentTile.toString() );
         String tilesHistory = TextUtils.join(" ", tbHistory);
         mTilesHistoryText.setText( tilesHistory );
-        if (score != null) displayScore( score );
+        displayScore( roundScore, tbRoundScores, totalScore );
         mDrawBtn.setEnabled(canDraw);
     }
 }

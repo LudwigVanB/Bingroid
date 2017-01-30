@@ -5,4 +5,22 @@
     <string name="draw">Piocher</string>
     <string name="reset">Réinitialiser</string>
     <string name="score">Score</string>
+    <string name="new_round">Nouvelle Manche</string>
+    <string name="new_game">Nouvelle Partie</string>
+    <string name="rules">Règles</string>
+    <string name="total_score">Total</string>
+    <string name="confirm_new_round">Etes-vous sûr de vouloir réinitialiser la manche en cours ?</string>
+    <string name="title_activity_rules">Règles</string>
+    <string name="rules_content">
+        "20 tuiles vont être tirées au sort parmi 40.\n\n"
+
+        "Les tuiles sont numérotés de 1 à 30. Les tuiles de 11 à 19 sont présentes en 2 exemplaires"
+        "et il y a en plus un joker.\n"
+        "Après chaque tiragae, vous devez placer la tuile sur la ligne. Une fois placée, elle ne"
+        "peut être bougée. L'objectif est de faire les suites de nombres croissants ou égaux les "
+        "plus longues possibles.\n\n"
+
+        "Une fois que la 20ème tuile à été placée, des points sont attribués à chaque série. La"
+        "somme de ces points sera votre score pour la manche.\n"
+    </string>
 </resources>
