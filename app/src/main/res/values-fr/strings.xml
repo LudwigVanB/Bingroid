@@ -16,7 +16,7 @@
 
         "Les tuiles sont numérotés de 1 à 30. Les tuiles de 11 à 19 sont présentes en 2 exemplaires"
         "et il y a en plus un joker.\n"
-        "Après chaque tiragae, vous devez placer la tuile sur la ligne. Une fois placée, elle ne"
+        "Après chaque tirage, vous devez placer la tuile sur la ligne. Une fois placée, elle ne"
         "peut être bougée. L'objectif est de faire les suites de nombres croissants ou égaux les "
         "plus longues possibles.\n\n"
 
